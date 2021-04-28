@@ -2,8 +2,8 @@
   <el-row>
     <el-col :span="20" :offset="2">
       <el-carousel :interval="4000" type="card">
-        <el-carousel-item v-for="item in pics" :key="item">
-          <img :src="item"/>
+        <el-carousel-item v-for="item in pics" :key="item.path">
+          <img :src="item.path" alt=""/>
         </el-carousel-item>
       </el-carousel>
     </el-col>
@@ -11,13 +11,25 @@
 </template>
 
 <script>
+import {apiGetCarouseList} from "../request/api";
+
 export default {
   name: 'Carousel',
   data() {
     return {
-      pics: ["../../static/pic/1.jpg", "../../static/pic/2.jpg", "../../static/pic/3.jpg",
-        "../../static/pic/4.jpg"
-      ]
+      pics: []
+    }
+  },
+  created() {
+    this.getData()
+  },
+  methods:{
+    getData(){
+      const self = this
+      apiGetCarouseList()
+        .then(response => {
+          self.pics = response.result
+        })
     }
   }
 }

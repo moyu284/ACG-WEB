@@ -6,6 +6,8 @@ import da from "element-ui/src/locale/lang/da";
 
 // 获取导航栏列表
 export const apiGetForums = data => get("api/forums/getForums", data)
+// 获得轮播图列表
+export const apiGetCarouseList = data => get("/api/carouse/getList",data)
 // 获得版块列表
 export const apiGetFormsName = data => get("api/forums/getName",data)
 // 获取帖子详情

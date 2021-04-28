@@ -27,6 +27,7 @@
 import {apiLogin} from "../request/api";
 import store from "../store";
 import router from "../router";
+import {Message} from "element-ui";
 export default {
   name: "Login",
   data() {
@@ -57,11 +58,9 @@ export default {
               localStorage.setItem("user",JSON.stringify(response.result.user))
               localStorage.setItem("loginSuccess", '1')
               router.replace("/")
-            }else {
-              that.$refs.ruleForm.resetFields();
-              that.$message({
-                message: response.message,
-                type: 'error',
+              Message({
+                message: '登录成功',
+                type: 'success',
                 duration: '2000',
               })
             }

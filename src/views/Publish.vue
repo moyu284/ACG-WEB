@@ -12,6 +12,7 @@
               :options="options"
               :props="props"
               ref="checked"
+              @change="id"
             ></el-cascader>
           </el-form-item>
           <el-form-item label="内容" prop="content">
@@ -46,8 +47,8 @@ export default {
           { required: true, message: '请输入标题', trigger: 'blur' }
         ]
       },
-      options: JSON.parse(sessionStorage.getItem("formsList")) || [],
       selectedOptions: [],
+      options: [],
       props: {
         checkStrictly: false,
         value: 'code',
@@ -57,15 +58,16 @@ export default {
       topic: ''
     }
   },
-  created() {
+  mounted() {
     this.getList()
   },
   methods: {
-    getList: () => {
+    getList(){
       const that = this
       apiGetForums()
         .then(response => {
-          localStorage.setItem("formsList",JSON.stringify(getTreeData(response.result)))
+          this.options = getTreeData(response.result)
+          // this.$forceUpdate();
         })
     },
     submitForm(formName) {

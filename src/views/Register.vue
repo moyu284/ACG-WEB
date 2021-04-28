@@ -6,10 +6,10 @@
       </div>
       <div>
         <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="auto">
-          <el-form-item label="用户名" prop="name">
+          <el-form-item label="用户名" prop="userName">
             <el-input v-model="ruleForm.userName" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="密码" prop="pass">
+          <el-form-item label="密码" prop="userPw">
             <el-input type="password" v-model="ruleForm.userPw"></el-input>
           </el-form-item>
           <el-form-item label="确认密码" prop="checkPass">
@@ -105,6 +105,7 @@ export default {
           { validator: validatePass, trigger: 'blur' }
         ],
         checkPass: [
+          { required: true, message: '请输入确认密码', trigger: 'blur' },
           { validator: validatePass2, trigger: 'blur' }
         ],
         email: [

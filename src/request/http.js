@@ -1,11 +1,11 @@
 // 引入
 import axios from "axios"
-import QS from 'qs';
 import {Message} from 'element-ui'    //引入 element-ui 的 Message 模块，用于信息提示
 import store from "../store";     //引入 vuex 中的数据
 import {getToken} from "../public/auth";
 import router from "../router";
-import el from "element-ui/src/locale/lang/el";
+
+
 // 环境
 axios.defaults.baseURL = 'http://localhost:8081/';   //  要请求的后台地址
 // 请求超时
