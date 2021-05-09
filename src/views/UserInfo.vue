@@ -16,7 +16,8 @@
             drag
             action="http://localhost:8081/image/imageUpload"
             :multiple="false"
-            :on-success="uploadImage">
+            :on-success="uploadImage"
+            accept=".jpg,.jpeg,.png,.JPG,.JPEG,.PNG">
             <i class="el-icon-upload"></i>
             <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
             <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -47,6 +48,7 @@
 import {apiLogin, apiUpdateUserInfo, apiUploadHeader} from "../request/api";
 import store from "../store";
 import router from "../router";
+import {Message} from "element-ui";
 
 export default {
   name: "UserInfo",
@@ -98,11 +100,20 @@ export default {
     uploadImage: function (response, file, fileList) {
       const that = this
       // console.log(response)
-      apiUploadHeader({
-        id: that.$store.state.user.id,
-        headerimg: response.result
-      })
-      store.commit("setUserHeader", response.result)
+      if (response.code === 500){
+        Message({
+          message: response.message,
+          type: 'error',
+          duration: 1000
+        })
+      }else {
+        apiUploadHeader({
+          id: that.$store.state.user.id,
+          headerimg: response.result
+        })
+        console.log(response)
+        store.commit("setUserHeader", response.result)
+      }
     },
     submitForm(formName) {
       const that = this
